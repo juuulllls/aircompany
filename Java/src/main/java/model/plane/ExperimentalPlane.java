@@ -3,14 +3,16 @@ package model.plane;
 import type.ClassificationLevelType;
 import type.ExperimentalType;
 
+import java.util.Objects;
+
 public class ExperimentalPlane extends Plane{
 
-    private ExperimentalType type;
+    private final ExperimentalType experimentalType;
     private ClassificationLevelType classificationLevel;
 
-    public ExperimentalPlane(String model, int maxSpeed, int maxFlightDistance, int maxLoadCapacity, ExperimentalType type, ClassificationLevelType classificationLevel) {
+    public ExperimentalPlane(String model, int maxSpeed, int maxFlightDistance, int maxLoadCapacity, ExperimentalType experimentalType, ClassificationLevelType classificationLevel) {
         super(model, maxSpeed, maxFlightDistance, maxLoadCapacity);
-        this.type = type;
+        this.experimentalType = experimentalType;
         this.classificationLevel = classificationLevel;
     }
 
@@ -22,14 +24,21 @@ public class ExperimentalPlane extends Plane{
         this.classificationLevel = classificationLevel;
     }
 
+    public ExperimentalType getExperimentalType() {
+        return experimentalType;
+    }
+
     @Override
     public boolean equals(Object o) {
-        return super.equals(o);
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ExperimentalPlane experimentalPlane = (ExperimentalPlane) o;
+        return experimentalType == experimentalPlane.experimentalType && classificationLevel == experimentalPlane.classificationLevel;
     }
 
     @Override
     public int hashCode() {
-        return super.hashCode();
+        return Objects.hash(super.hashCode(), experimentalType, classificationLevel);
     }
 
     @Override
@@ -38,4 +47,5 @@ public class ExperimentalPlane extends Plane{
                 "model='" + model + '\'' +
                 '}';
     }
+
 }
