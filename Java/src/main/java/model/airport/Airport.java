@@ -2,6 +2,7 @@ package model.airport;
 
 import model.plane.ExperimentalPlane;
 import type.ClassificationLevelType;
+import type.ExperimentalType;
 import type.MilitaryType;
 import model.plane.MilitaryPlane;
 import model.plane.PassengerPlane;
@@ -62,6 +63,17 @@ public class Airport {
         return militaryPlanesByCertainType;
     }
 
+    public List<ExperimentalPlane> getExperimentalPlanesByCertainType(ExperimentalType experimentalType) {
+        List<ExperimentalPlane> experimentalPlanes = getExperimentalPlanes();
+        List<ExperimentalPlane> experimentalPlanesByCertainType = new ArrayList<>();
+        for (ExperimentalPlane experimentalPlane : experimentalPlanes) {
+            if (experimentalPlane.getExperimentalType() == experimentalType) {
+                experimentalPlanesByCertainType.add(experimentalPlane);
+            }
+        }
+        return experimentalPlanesByCertainType;
+    }
+
     public List<ExperimentalPlane> getExperimentalPlanes() {
         List<ExperimentalPlane> experimentalPlanes = new ArrayList<>();
         for (Plane plane : planes) {
@@ -73,12 +85,12 @@ public class Airport {
     }
 
     public List<ClassificationLevelType> getClassificationLevelsInExperimentalPlanes() {
-        List<ClassificationLevelType> classificationLevels = new ArrayList<>();
+        List<ClassificationLevelType> classificationLevelTypes = new ArrayList<>();
         List<ExperimentalPlane> experimentalPlanes = getExperimentalPlanes();
         for (ExperimentalPlane experimentalPlane : experimentalPlanes) {
-            classificationLevels.add(experimentalPlane.getClassificationLevel());
+            classificationLevelTypes.add(experimentalPlane.getClassificationLevel());
         }
-        return classificationLevels;
+        return classificationLevelTypes;
     }
 
     public Airport sortPlanesByMaxFlightDistance() {
