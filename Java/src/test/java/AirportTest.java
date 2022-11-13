@@ -46,12 +46,12 @@ public class AirportTest {
             new MilitaryPlane("B-1B Lancer", 1050, 21000, 80000, MilitaryType.BOMBER);
 
     @Test
-    public void testHasExperimentalPlanesWithClassificationLevelHigherThanUnclassified(){
+    public void testHasNotExperimentalPlanesWithClassificationLevelTypeWithUnclassifiedType(){
         Assert.assertFalse(new Airport(planes).getClassificationLevelsInExperimentalPlanes().contains(UNCLASSIFIED_EXPERIMENTAL_CLASSIFICATION_LEVEL_TYPE));
     }
 
     @Test
-    public void testHasExperimentalPlanesWithConfidentialLevelHigherThanConfidential(){
+    public void testHasNotExperimentalPlanesWithClassificationLevelTypeWithConfidentialType(){
         Assert.assertFalse(new Airport(planes).getClassificationLevelsInExperimentalPlanes().contains(CONFIDENTIAL_EXPERIMENTAL_CLASSIFICATION_LEVEL_TYPE));
     }
 
