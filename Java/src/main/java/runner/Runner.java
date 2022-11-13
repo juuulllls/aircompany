@@ -1,3 +1,5 @@
+package runner;
+
 import model.airport.Airport;
 import type.MilitaryType;
 import model.plane.MilitaryPlane;
@@ -30,12 +32,11 @@ public class Runner {
         Airport militaryAirport = new Airport(airport.getMilitaryPlanes());
         Airport passengerAirport = new Airport(airport.getPassengerPlanes());
         System.out.println("Military airport sorted by max distance: " + militaryAirport
-                .sortByMaxFlightDistance()
+                .sortPlanesByMaxFlightDistance()
                 .toString());
         System.out.println("Passenger airport sorted by max speed: " + passengerAirport
-                .sortByMaxSpeed()
+                .sortPlanesByMaxSpeed()
                 .toString());
-
         System.out.println("Plane with max passenger capacity: " + passengerAirport.getPassengerPlaneWithMaxPassengersCapacity());
     }
 }

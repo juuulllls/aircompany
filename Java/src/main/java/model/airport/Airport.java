@@ -1,6 +1,7 @@
 package model.airport;
 
 import model.plane.ExperimentalPlane;
+import type.ClassificationLevelType;
 import type.MilitaryType;
 import model.plane.MilitaryPlane;
 import model.plane.PassengerPlane;
@@ -50,26 +51,15 @@ public class Airport {
         return planeWithMaxCapacity;
     }
 
-    public List<MilitaryPlane> getTransportMilitaryPlanes() {
-        List<MilitaryPlane> transportMilitaryPlanes = new ArrayList<>();
+    public List<MilitaryPlane> getMilitaryPlanesByCertainType(MilitaryType militaryType) {
         List<MilitaryPlane> militaryPlanes = getMilitaryPlanes();
-        for (MilitaryPlane plane : militaryPlanes) {
-            if (plane.getMilitaryType() == MilitaryType.TRANSPORT) {
-                transportMilitaryPlanes.add(plane);
+        List<MilitaryPlane> militaryPlanesByCertainType = new ArrayList<>();
+        for (MilitaryPlane militaryPlane : militaryPlanes) {
+            if (militaryPlane.getMilitaryType() == militaryType) {
+                militaryPlanesByCertainType.add(militaryPlane);
             }
         }
-        return transportMilitaryPlanes;
-    }
-
-    public List<MilitaryPlane> getBomberMilitaryPlanes() {
-        List<MilitaryPlane> bomberMilitaryPlanes = new ArrayList<>();
-        List<MilitaryPlane> militaryPlanes = getMilitaryPlanes();
-        for (MilitaryPlane plane : militaryPlanes) {
-            if (plane.getMilitaryType() == MilitaryType.BOMBER) {
-                bomberMilitaryPlanes.add(plane);
-            }
-        }
-        return bomberMilitaryPlanes;
+        return militaryPlanesByCertainType;
     }
 
     public List<ExperimentalPlane> getExperimentalPlanes() {
@@ -82,12 +72,21 @@ public class Airport {
         return experimentalPlanes;
     }
 
-    public Airport sortByMaxFlightDistance() {
+    public List<ClassificationLevelType> getClassificationLevelsInExperimentalPlanes() {
+        List<ClassificationLevelType> classificationLevels = new ArrayList<>();
+        List<ExperimentalPlane> experimentalPlanes = getExperimentalPlanes();
+        for (ExperimentalPlane experimentalPlane : experimentalPlanes) {
+            classificationLevels.add(experimentalPlane.getClassificationLevel());
+        }
+        return classificationLevels;
+    }
+
+    public Airport sortPlanesByMaxFlightDistance() {
         planes.sort(Comparator.comparingInt(Plane::getMaxFlightDistance));
         return this;
     }
 
-    public Airport sortByMaxSpeed() {
+    public Airport sortPlanesByMaxSpeed() {
         planes.sort(Comparator.comparingInt(Plane::getMaxSpeed));
         return this;
     }
@@ -101,5 +100,18 @@ public class Airport {
         return "model.airport.Airport{" +
                 "Planes=" + planes.toString() +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Airport airport = (Airport) o;
+        return Objects.equals(planes, airport.planes);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(planes);
     }
 }
